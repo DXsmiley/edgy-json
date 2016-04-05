@@ -7,6 +7,7 @@ def merge_dicts(a, b):
 	return r
 
 def check(schema, data, named_schemas = {}, trace = False):
+
 	if trace is True:
 		trace = 0
 	if type(trace) is int:
@@ -15,8 +16,10 @@ def check(schema, data, named_schemas = {}, trace = False):
 		print('    ' * trace, named_schemas)
 		print()
 		trace += 1
+
 	if type(schema) is bool:
 		return schema is data
+
 	if type(schema) is str:
 		if schema == 'none':
 			return data is None
