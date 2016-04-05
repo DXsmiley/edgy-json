@@ -68,6 +68,20 @@ Example Data
 
     [1, 2, 3, 4]
 
+### Extended Integers
+
+Schema
+
+    {
+        "__type__": "int",
+        "minimum": 10,
+        "maximum": 20
+    }
+
+Example Data
+
+    15
+
 ### Recursion
 
 Schema
