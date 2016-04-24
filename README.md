@@ -10,7 +10,7 @@ This is [JSON Schema](https://json-schema.org) for hipsters like you!
 
 ## Documentation
 
-    checkjson.check(schema, data)
+    edgy.check(schema, data)
 
 I wanted to write a zero-function library, but that's so edgy it's illegal.
 
