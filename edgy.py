@@ -6,7 +6,7 @@ def _merge_dicts(a, b):
 	r.update(b)
 	return r
 
-def check(schema, data, named_schemas = {}, trace = False):
+def _check(schema, data, named_schemas = {}, trace = False):
 
 	if trace is True:
 		trace = 0
@@ -35,13 +35,13 @@ def check(schema, data, named_schemas = {}, trace = False):
 			name = schema[1:]
 			if name not in named_schemas:
 				raise Exception('Unknown named schema: ' + name)
-			return check(named_schemas[name], data, named_schemas, trace)
+			return _check(named_schemas[name], data, named_schemas, trace)
 		else:
 			raise Exception('Invalid string schema: ' + schema)
 	
 	if type(schema) is list:
 		for i in schema:
-			if check(i, data, named_schemas, trace):
+			if _check(i, data, named_schemas, trace):
 				return True
 		return False
 
@@ -49,14 +49,14 @@ def check(schema, data, named_schemas = {}, trace = False):
 		if '__named__' in schema:
 			named_schemas = _merge_dicts(named_schemas, schema['__named__'])
 		if '__this__' in schema:
-			return check(schema['__this__'], data, named_schemas, trace)
+			return _check(schema['__this__'], data, named_schemas, trace)
 		dtype = schema.get('__type__', 'object')
 		if dtype == 'object':
 			if type(data) is not dict:
 				return False
 			for k, s in schema.items():
 				if not k.startswith('__'):
-					if not check(s, data.get(k), named_schemas, trace):
+					if not _check(s, data.get(k), named_schemas, trace):
 						return False
 			for k, v in data.items():
 				if k not in schema:
@@ -66,7 +66,7 @@ def check(schema, data, named_schemas = {}, trace = False):
 			if type(data) is not list:
 				return False
 			for i in data:
-				if not check(schema['__item__'], i, named_schemas, trace):
+				if not _check(schema['__item__'], i, named_schemas, trace):
 					return False
 			return True
 		elif dtype == 'int':
@@ -79,3 +79,6 @@ def check(schema, data, named_schemas = {}, trace = False):
 			return True
 
 	raise TypeError('Unknown schema type: ' + str(type(schema)))
+
+def check(schema, data, trace = False):
+	return _check(schema, data, trace = trace)
