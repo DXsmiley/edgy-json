@@ -11,7 +11,7 @@ with open(path.join(here, 'README.md'), encoding = 'utf-8') as f:
 
 setup(
 	name = 'edgy-json',
-	version = '0.0.1',
+	version = '0.0.2',
 	url = 'https://github.com/DXsmiley/edgy-json',
 	author = 'DXsmiley',
 	author_email = 'dxsmiley@hotmail.com',
