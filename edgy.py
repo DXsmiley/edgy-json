@@ -18,7 +18,7 @@ def _merge_dicts(a, b):
 
 
 def _check(schema, data, named_schemas={}, trace=False):
-    if trace is True:
+    if trace:
         trace = 0
     if isinstance(trace, int):
         print('    ' * trace, schema)
