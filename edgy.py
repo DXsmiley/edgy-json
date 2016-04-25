@@ -1,3 +1,12 @@
+"""edgy-json
+
+Verifies json data by comparing it against a schema.
+
+This is not an implementation of json-schema, rather
+an alternative for people who move fast and break things.
+
+"""
+
 import json
 import itertools
 
@@ -34,10 +43,10 @@ def _check(schema, data, named_schemas = {}, trace = False):
 		elif schema[0] == '@':
 			name = schema[1:]
 			if name not in named_schemas:
-				raise Exception('Unknown named schema: ' + name)
+				raise ValueError('Unknown named schema: ' + name)
 			return _check(named_schemas[name], data, named_schemas, trace)
 		else:
-			raise Exception('Invalid string schema: ' + schema)
+			raise ValueError('Invalid string schema: ' + schema)
 	
 	if type(schema) is list:
 		for i in schema:
@@ -81,4 +90,21 @@ def _check(schema, data, named_schemas = {}, trace = False):
 	raise TypeError('Unknown schema type: ' + str(type(schema)))
 
 def check(schema, data, trace = False):
+	"""Verify some json.
+
+	Args:
+		schema - the description of a general-case 'valid' json object.
+		data - the json data to verify.
+
+	Returns:
+		bool: True if data matches the schema, False otherwise.
+
+	Raises:
+		TypeError:
+			If the schema is of an unknown data type.
+		ValueError:
+			If the schema contains a string with an invalid value.
+			If the schema attempts to reference a non-existent named schema.
+
+	"""
 	return _check(schema, data, trace = trace)
