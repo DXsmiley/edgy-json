@@ -1,7 +1,7 @@
 import json
 import itertools
 
-def merge_dicts(a, b):
+def _merge_dicts(a, b):
 	r = a.copy()
 	r.update(b)
 	return r
@@ -47,7 +47,7 @@ def check(schema, data, named_schemas = {}, trace = False):
 
 	if type(schema) is dict:
 		if '__named__' in schema:
-			named_schemas = merge_dicts(named_schemas, schema['__named__'])
+			named_schemas = _merge_dicts(named_schemas, schema['__named__'])
 		if '__this__' in schema:
 			return check(schema['__this__'], data, named_schemas, trace)
 		dtype = schema.get('__type__', 'object')
