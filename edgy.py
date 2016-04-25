@@ -30,7 +30,7 @@ def _check(schema, data, named_schemas={}, trace=False):
     if isinstance(schema, bool):
         return schema is data
 
-    if isinstance(schema, str):
+    elif isinstance(schema, str):
         if schema == 'none':
             return data is None
         elif schema == 'string':
@@ -49,13 +49,13 @@ def _check(schema, data, named_schemas={}, trace=False):
         else:
             raise ValueError('Invalid string schema: ' + schema)
 
-    if isinstance(schema, list):
+    elif isinstance(schema, list):
         for i in schema:
             if _check(i, data, named_schemas, trace):
                 return True
         return False
 
-    if isinstance(schema, dict):
+    elif isinstance(schema, dict):
         if '__named__' in schema:
             named_schemas = _merge_dicts(named_schemas, schema['__named__'])
         if '__this__' in schema:
