@@ -1,0 +1,6 @@
+{
+  "name": "Edgy-JSON",
+  "tagline": "JSON verification for hipsters",
+  "body": "Edgy-JSON is an alternative to [JSON Schema](http://json-schema.org/). If you want to introduce some potentially broken code into your project, you should use Edgy-JSON. If not, don't worry. Edgy-JSON will probably become mainstream one day, and I'll have moved on to some other bleeding-edge project.\r\n\r\n# Install\r\n    pip install edgy-json\r\n\r\n# Use\r\n    import edgy\r\n    edgy.check(schema, data)\r\n\r\n# Documentation\r\nThe future hasn't arrived yet.\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
