@@ -17,10 +17,8 @@ def _merge_dicts(a, b):
     return r
 
 
-def _check(schema, data, named_schemas={}, trace=False):
+def _check(schema, data, named_schemas={}, trace=None):
     if trace:
-        trace = 0
-    if isinstance(trace, int):
         print('    ' * trace, schema)
         print('    ' * trace, data)
         print('    ' * trace, named_schemas)
@@ -109,4 +107,8 @@ def check(schema, data, trace=False):
 			If the schema attempts to reference a non-existent named schema.
 
 	"""
+    if trace == True:
+        trace = 1
+    else:
+        trace = None
     return _check(schema, data, trace=trace)
