@@ -70,9 +70,10 @@ def _check(schema, data, named_schemas={}, trace=None):
                 if not k.startswith('__'):
                     if not _check(s, data.get(k), named_schemas, trace):
                         return False
+            extra = schema.get('__extra__', 'nothing')
             for k, v in data.items():
                 if k not in schema:
-                    return False
+                    return _check(extra, v, named_schemas, trace)
             return True
         elif dtype == 'list':
             if not isinstance(data, list):
