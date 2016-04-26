@@ -33,6 +33,8 @@ def _check(schema, data, named_schemas={}, trace=None):
             return data is None
         elif schema == 'anything':
             return True
+        elif schema == 'nothing':
+            return False
         elif schema == 'string':
             return isinstance(data, str)
         elif schema == 'float':
