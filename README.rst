@@ -12,6 +12,8 @@ This is `JSON Schema`_ for hipsters like you!
 Documentation
 -------------
 
+Here is the `full documentation`_.
+
 ::
 
     edgy.check(schema, data)
@@ -151,3 +153,4 @@ Example Data
     [6, 3, 7, [3, 6, 3], 6, [20]]
 
 .. _JSON Schema: https://json-schema.org
+.. _full documentation: http://dxsmiley.github.io/edgy-json/docs
