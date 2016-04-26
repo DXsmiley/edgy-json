@@ -38,9 +38,9 @@ Schema
 
 Example Data
 
-    {"x", 3}
+    {"x": 3}
 
-    {"x", "edgy"}
+    {"x": "edgy"}
 
 Schema
 
@@ -51,7 +51,7 @@ Schema
 
 Example Data
 
-    {"x", -20}
+    {"x": -20}
 
     {"y": "not cool yet"}
 
