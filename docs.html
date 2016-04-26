@@ -20,6 +20,9 @@
         </section>
 
         <section class="main-content">
+
+            <h1>Interface</h1>
+
             <p>Edgy-JSON only contains one function.</p>
 
             <pre>edgy.check(schema, data, trace=False)</pre>
@@ -30,6 +33,153 @@
 
             <pre>import json
 data = json.loads(string)</pre>
+
+            <h1>Basic Matching</h1>
+
+            Edgy-JSON is a lot like regular expressions, in that we have an expression (schema) that is compared against a string (json data). Unlike regex, Edgy-JSON can only check whether data matches a particular pattern - it can't do any replacements or extractions.
+
+            <h1>Atomics</h1>
+
+            <p>Atomics are used to match 'primitive' data types such as integers and strings.</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <td>Schema</td>
+                        <td>Description</td>
+                        <td>Example Data</td>
+                    </tr>
+                </thead>
+                <tr>
+                    <td><code>"string"</code></td>
+                    <td>Matches any string.</td>
+                    <td><code>"Hello, World!"</code></tr>
+                </tr>
+                <tr>
+                    <td><code>"float"</code></td>
+                    <td>Matches any floating point number.</td>
+                    <td><code>3.5</code></tr>
+                </tr>
+                <tr>
+                    <td><code>"int"</code></td>
+                    <td>Matches any integer.</td>
+                    <td><code>12</code></tr>
+                </tr>
+                <tr>
+                    <td><code>"none"</code></td>
+                    <td>Matches non-existent data. Can be used in an object to </td>
+                    <td></tr>
+                </tr>
+                <tr>
+                    <td><code>"bool"</code></td>
+                    <td>Matches the booleans <code>true</code> and <code>false</code>.</td>
+                    <td><code>false</code></tr>
+                </tr>
+                <tr>
+                    <td><code>true</code></td>
+                    <td>Matches the boolean <code>true</code>.</td>
+                    <td><code>true</code></tr>
+                </tr>
+                <tr>
+                    <td><code>false</code></td>
+                    <td>Matches the boolean <code>false</code>.</td>
+                    <td><code>false</code></tr>
+                </tr>
+                <tr>
+                    <td><code>"nothing"</code></td>
+                    <td>Will never match. Used only in special conditions.</td>
+                    <td></tr>
+                </tr>
+                <tr>
+                    <td><code>"Anything"</code></td>
+                    <td>Always matches. It even matches non-existent data.</td>
+                    <td><code>"wheeeee!"</code></tr>
+                </tr>
+            </table>
+
+            <h1>Objects</h1>
+
+            <p>To match a JSON object, we use a JSON object. The schema should contain a rule used to match each attribute of the object. For example, if we were running a shop, an item in stock might look like this:</p>
+
+            <pre>{
+    "name": "Spam",
+    "price": 4.20,
+    "id": 3726458
+}</pre>
+
+            <p>Each item needs a <i>name</i>, which is always a string. Each item needs a <i>price</i>, which is a decimal. Each item needs an <i>id</i>, which is an integer. We can represent these requirements like so:</p>
+
+            <pre>{
+    "name": "string",
+    "price": "float",
+    "id": "int"
+}</pre>
+
+            <p>Schemas can be nested. For example, if we were to add supplier information to the spam, we might end up with some JSON that looked like this:</p>
+
+            <pre>{
+    "name": "Spam",
+    "price": 4.20,
+    "id": 3726458,
+    "supplier":
+    {
+        "name": "Arbitrary Vikings",
+        "address": "Norway"
+    }
+}</pre>
+
+            <p>We can update the schema to include this data.</p>
+
+            <pre>{
+    "name": "string",
+    "price": "float",
+    "id": "int",
+    "supplier":
+    {
+        "name": "string",
+        "address": "string"
+    }
+}</pre>
+
+            <p><i>Note:</i> By default, if any object has extra or missing attributes, the match will fail.</p>
+
+            <h1>Or: Matching one of Many</h1>
+
+            <p>Given the schema example above, lets assume that, due to an inconsistency in the database, some of the prices are stored as decimals, and some as integers. We can easily address this issue through the use of <i>possibilities</i>. Within the schema, these are represented a lists. They will resolve to true if the data matches one of the elements within the list. For example, the following schema can be used to match both integers and decimals:</p>
+
+            <pre>["int", "float"]</pre>
+
+            <p>The elements of the list can be anything.</p>
+
+            <h2>Optional attributes</h2>
+
+            <p><i>Possibilities</i> can be combined with the <code>"none"</code> atom to to specify optional attributes as well.</p>
+
+            <pre>{ "x": ["none", "int"] }</pre>
+
+            <p>This example will match both <code>{ "x": 7 }</code> and <code>{ }</code> because the <code>x</code> attribute does not need to exist.</p>
+
+            <p>Given the inventory example, we can add these two new concepts to the schema. The price can now be any kind of number, and the supplier information is optional.</p>
+
+            <pre>{
+    "name": "string",
+    "price":
+    [
+        "int",
+        "float"
+    ],
+    "id": "int",
+    "supplier":
+    [
+        "none",
+        {
+            "name": "string",
+            "address": "string"
+        }
+    ]
+}</pre>
+
+            <!-- <p><i>Note:</i> JSON objects are represented in Python using a dictionary.</p> -->
 
             <footer class="site-footer">
                 <span class="site-footer-owner"><a href="https://github.com/DXsmiley/edgy-json">Edgy-JSON</a> is maintained by <a href="https://github.com/DXsmiley">DXsmiley</a>.</span>
