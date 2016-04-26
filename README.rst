@@ -19,6 +19,15 @@ Documentation
 I wanted to write a zero-function library, but that’s so edgy it’s
 illegal.
 
+Example
+
+::
+
+    edgy.check({"x": "int"}, {"x": 7})
+
+Note that you're not passing JSON strings, you're giving the function
+some standard python objects to work with.
+
 Examples
 --------
 
