@@ -92,6 +92,8 @@ def _check(schema, data, named_schemas={}, trace=None):
                 return False
             if 'maximum' in schema and data > schema['maximum']:
                 return False
+            if 'equals' in schema and data != schema['equals']:
+                return False
             return True
 
     raise TypeError('Unknown schema type: ' + str(type(schema)))
