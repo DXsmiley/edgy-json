@@ -69,16 +69,19 @@ def _check(schema, data, named_schemas={}, trace=None):
         if dtype == 'object':
             if not isinstance(data, dict):
                 return False
+            key_set = set()
             for k, s in schema.items():
                 if k.startswith('~'):
+                    key_set.add(k[1:])
                     if not _check(s, data.get(k[1:]), named_schemas, trace):
                         return False
                 elif not k.startswith('__'):
+                    key_set.add(k)
                     if not _check(s, data.get(k), named_schemas, trace):
                         return False
             extra = schema.get('__extra__', 'nothing')
             for k, v in data.items():
-                if k not in schema:
+                if k not in key_set:
                     return _check(extra, v, named_schemas, trace)
             return True
         elif dtype == 'list':
