@@ -70,7 +70,10 @@ def _check(schema, data, named_schemas={}, trace=None):
             if not isinstance(data, dict):
                 return False
             for k, s in schema.items():
-                if not k.startswith('__'):
+                if k.startswith('~'):
+                    if not _check(s, data.get(k[1:]), named_schemas, trace):
+                        return False
+                elif not k.startswith('__'):
                     if not _check(s, data.get(k), named_schemas, trace):
                         return False
             extra = schema.get('__extra__', 'nothing')
