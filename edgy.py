@@ -95,6 +95,12 @@ def _check(schema, data, named_schemas={}, trace=None):
             if 'equals' in schema and data != schema['equals']:
                 return False
             return True
+        elif dtype == 'string':
+            if not isinstance(data, str):
+                return False
+            if 'equals' in schema and data != schema['equals']:
+                return False
+            return True
         else:
             raise ValueError('Unknown values for __type__: ' + str(dtype))
 
