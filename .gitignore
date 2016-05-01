@@ -2,3 +2,4 @@ __pycache__
 dist
 edgy_json.egg-info
 *.sublime*
+.cache
