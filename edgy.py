@@ -11,6 +11,9 @@ import json
 import itertools
 
 
+DEV = True
+
+
 def _merge_dicts(a, b):
     r = a.copy()
     r.update(b)
