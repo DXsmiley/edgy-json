@@ -46,7 +46,7 @@ SCHEMA = \
                             '__type__': 'string',
                             'equals': 'string'
                         },
-                        'equals': ['none', 'int'],
+                        'equals': ['none', 'string']
                     },
                     {
                         '~__named__': 'anything',
