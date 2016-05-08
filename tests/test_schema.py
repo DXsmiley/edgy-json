@@ -46,7 +46,8 @@ SCHEMA = \
                             '__type__': 'string',
                             'equals': 'string'
                         },
-                        'equals': ['none', 'string']
+                        'equals': ['none', 'string'],
+                        'matches': ['none', 'string']
                     },
                     {
                         '~__named__': 'anything',
