@@ -9,6 +9,7 @@ an alternative for people who move fast and break things.
 
 import json
 import itertools
+import re
 
 
 DEV = True
@@ -106,6 +107,9 @@ def _check(schema, data, named_schemas={}, trace=None):
                 return False
             if 'equals' in schema and data != schema['equals']:
                 return False
+            if 'matches' in schema:
+                if re.fullmatch(schema['matches'], data) == None:
+                    return False
             return True
         else:
             raise ValueError('Unknown values for __type__: ' + str(dtype))
