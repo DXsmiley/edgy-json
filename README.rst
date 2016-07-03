@@ -123,6 +123,44 @@ Example Data
 
     15
 
+String Equality
+~~~~~~~~~~~~~~~
+
+Schema
+
+::
+
+    {
+        "__type__": "string",
+        "equals": "Hello"
+    }
+
+Example Data
+
+Regular Expression Matching
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Uses Python's regex module, re.
+
+::
+
+    "Hello"
+
+Schema
+
+::
+
+    {
+        "__type__": "string",
+        "matches": "[A-Z ]*"
+    }
+
+Example Data
+
+::
+
+    "UPPERCASE ONLY"
+
 Recursion
 ~~~~~~~~~
 
