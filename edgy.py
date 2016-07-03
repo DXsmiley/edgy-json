@@ -13,7 +13,7 @@ import re
 import warnings
 
 
-DEV = True
+DEV = False
 
 
 def _merge_dicts(a, b):
