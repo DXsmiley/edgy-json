@@ -120,21 +120,21 @@ def _check(schema, data, named_schemas={}, trace=None):
 def check(schema, data, trace=False):
     """Verify some json.
 
-	Args:
-		schema - the description of a general-case 'valid' json object.
-		data - the json data to verify.
+    Args:
+        schema - the description of a general-case 'valid' json object.
+        data - the json data to verify.
 
-	Returns:
-		bool: True if data matches the schema, False otherwise.
+    Returns:
+        bool: True if data matches the schema, False otherwise.
 
-	Raises:
-		TypeError:
-			If the schema is of an unknown data type.
-		ValueError:
-			If the schema contains a string with an invalid value.
-			If the schema attempts to reference a non-existent named schema.
+    Raises:
+        TypeError:
+            If the schema is of an unknown data type.
+        ValueError:
+            If the schema contains a string with an invalid value.
+            If the schema attempts to reference a non-existent named schema.
 
-	"""
+    """
     if trace == True:
         trace = 1
     else:
