@@ -10,6 +10,7 @@ an alternative for people who move fast and break things.
 import json
 import itertools
 import re
+import warnings
 
 
 DEV = True
@@ -19,6 +20,16 @@ def _merge_dicts(a, b):
     r = a.copy()
     r.update(b)
     return r
+
+
+def _param_deprecation_warning(schema, deprecated, context):
+    """Raises warning about using the 'old' names for some parameters.
+
+    The new naming scheme just has two underscores on each end of the word for consistency
+    """
+    for i in deprecated:
+        if i in schema:
+                warnings.warn('When matching {}, parameter {} is deprecated, use __{}__ instead', Warning)
 
 
 def _check(schema, data, named_schemas={}, trace=None):
@@ -95,20 +106,27 @@ def _check(schema, data, named_schemas={}, trace=None):
         elif dtype == 'int':
             if not isinstance(data, int):
                 return False
-            if 'minimum' in schema and data < schema['minimum']:
+            _param_deprecation_warning(schema, ['minimum', 'maximum', 'equals'], 'int')
+            minimum = schema.get('minimum') or schema.get('__minimum__')
+            if minimum and data < minimum:
                 return False
-            if 'maximum' in schema and data > schema['maximum']:
+            maximum = schema.get('maximum') or schema.get('__maximum__')
+            if maximum and data > maximum:
                 return False
-            if 'equals' in schema and data != schema['equals']:
+            equals = schema.get('equals') or schema.get('__equals__')
+            if equals and data != equals:
                 return False
             return True
         elif dtype == 'string':
             if not isinstance(data, str):
                 return False
-            if 'equals' in schema and data != schema['equals']:
+            _param_deprecation_warning(schema, ['equals', 'matches'], 'string')
+            equals = schema.get('equals') or schema.get('__equals__')
+            if equals and data != equals:
                 return False
-            if 'matches' in schema:
-                if re.fullmatch(schema['matches'], data) == None:
+            matches = schema.get('matches') or schema.get('__matches__')
+            if matches:
+                if re.fullmatch(matches, data) == None:
                     return False
             return True
         else:
