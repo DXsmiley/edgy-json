@@ -113,8 +113,8 @@ Schema
 
     {
         "__type__": "int",
-        "minimum": 10,
-        "maximum": 20
+        "__minimum__": 10,
+        "__maximum__": 20
     }
 
 Example Data
@@ -132,7 +132,7 @@ Schema
 
     {
         "__type__": "string",
-        "equals": "Hello"
+        "__equals__": "Hello"
     }
 
 Example Data
@@ -152,7 +152,7 @@ Schema
 
     {
         "__type__": "string",
-        "matches": "[A-Z ]*"
+        "__matches__": "[A-Z ]*"
     }
 
 Example Data
