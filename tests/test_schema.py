@@ -32,11 +32,11 @@ SCHEMA = \
                         '~__type__':
                         {
                             '__type__': 'string',
-                            'equals': 'int'
+                            '__equals__': 'int'
                         },
-                        'equals': ['none', 'int'],
-                        'minimum': ['none', 'int'],
-                        'maximum': ['none', 'int']
+                        '__equals__': ['none', 'int'],
+                        '__minimum__': ['none', 'int'],
+                        '__maximum__': ['none', 'int']
                     },
                     {
                         '~__named__': 'anything',
@@ -44,10 +44,10 @@ SCHEMA = \
                         '~__type__':
                         {
                             '__type__': 'string',
-                            'equals': 'string'
+                            '__equals__': 'string'
                         },
-                        'equals': ['none', 'string'],
-                        'matches': ['none', 'string']
+                        '__equals__': ['none', 'string'],
+                        '__matches__': ['none', 'string']
                     },
                     {
                         '~__named__': 'anything',
@@ -55,7 +55,7 @@ SCHEMA = \
                         '~__type__':
                         {
                             '__type__': 'string',
-                            'equals': 'list'
+                            '__equals__': 'list'
                         },
                         '~__item__': '@schema'
                     }
