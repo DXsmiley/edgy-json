@@ -29,7 +29,9 @@ def _param_deprecation_warning(schema, deprecated, context):
     """
     for i in deprecated:
         if i in schema:
-                warnings.warn('When matching {}, parameter {} is deprecated, use __{}__ instead', Warning)
+                msg = 'When matching {ctx}, parameter {word} is deprecated, use __{word}__ instead'
+                msg = msg.format(ctx = context, word = i)
+                warnings.warn(msg, Warning)
 
 
 def _check(schema, data, named_schemas={}, trace=None):
